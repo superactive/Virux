@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 #Virux, GNU/Linux için bir antivirüs yazılımıdır :P
 #Copyright (C) 2011, Metehan Özbek
 #
@@ -21,7 +23,7 @@ dizin_listesi = os.listdir(os.path.abspath(os.path.dirname(__file__)))
 def dialogList(list):
     for py in list:
         if not py.startswith("__init__"):
-            if py[-3:] != "pyc":
+            if py[-3:] != "pyc" and py[:-3] == ".py":
                 yield py[:-3]
 
 kod = ""
