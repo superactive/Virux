@@ -69,7 +69,7 @@ class SystemTray(QSystemTrayIcon):
                 dialog = random.choice(self.dialogList)
                 dialog = dialog(self.parent)
                 dialog.show()
-                self.timer2.start(random.randrange(1000*10000,1000*50000), self)
+                self.timer2.start(random.randrange(1000*7200,1000*43200), self)
         
             
     def mesaj(self, reason):
