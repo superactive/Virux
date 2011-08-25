@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="bocuk">
+    <file>data/bocuk/00.png</file>
+    <file>data/bocuk/01.png</file>
+    <file>data/bocuk/02.png</file>
+    <file>data/bocuk/03.png</file>
+    <file>data/bocuk/04.png</file>
+    <file>data/bocuk/05.png</file>
+    <file>data/bocuk/06.png</file>
+    <file>data/bocuk/07.png</file>
+    <file>data/bocuk/08.png</file>
+    <file>data/bocuk/09.png</file>
+  </qresource>
+  <qresource prefix="logo">
+    <file>data/logo.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,2 @@
+* Dialogların çıkma süresini ayarlanabilir yapma.
+* Yeni dialoglar ekleme.

@@ -1,0 +1,8 @@
+Version 0.2.5
+-------------
+
+* progress adında yeni bir dialog modülü eklendi.
+* uygulama da kullanılan simgeler resource ile kullanılmaya başladı.
+* Açılışta çalıştır seçeneği eklendi.
+* Dialogların ESC tuşuyla kapanması önlendi(uygulama da kapanıyordu.).
+* Kapat seçeneği eklendi.

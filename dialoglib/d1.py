@@ -17,6 +17,7 @@
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4.QtGui import QDialog, QGridLayout, QLabel, QPushButton, QMessageBox
+from PyQt4.QtCore import Qt
 
 class DMessage(QDialog):
     def __init__(self, parent):
@@ -60,6 +61,10 @@ class DMessage(QDialog):
         QMessageBox.information(self, u"Bırakmam!", u"Böylesi bulunmaz bir daha!", u"Bırak Lan!")
         QMessageBox.information(self, u"Bağırma!", u"Bağırma, adamı hasta etme!<br> Efendi ol canımı ye...", u"Özür dilerim!")
         self.close()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            pass
 
     def closeEvent(self, event):
         event.ignore()

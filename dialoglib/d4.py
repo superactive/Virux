@@ -17,6 +17,7 @@
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4.QtGui import QDialog, QGridLayout, QLabel, QPushButton, QSpacerItem, QSizePolicy, QMessageBox
+from PyQt4.QtCore import Qt
 
 class DMessage(QDialog):
     def __init__(self, parent):
@@ -43,6 +44,10 @@ class DMessage(QDialog):
     def daha(self):
         QMessageBox.information(self, u"Emredersiniz!", u"Emredersiniz Paşam!", u"Uzatma!")
         self.close()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            pass
 
     def closeEvent(self, event):
         event.ignore()
