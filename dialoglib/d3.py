@@ -55,7 +55,3 @@ class DMessage(QDialog):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             pass
-
-    def closeEvent(self, event):
-        event.ignore()
-        self.hide()

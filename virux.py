@@ -117,7 +117,7 @@ class SystemTray(QSystemTrayIcon):
             desktop = """[Desktop Entry]
             Comment[tr]=Platform bağımsız bir antivirüs uygulaması
             Comment=Platform bağımsız bir antivirüs uygulaması
-            Exec=python virux.py
+            Exec=python %s/virux.py
             GenericName[tr]=Platform bağımsız bir antivirüs uygulaması
             GenericName=Platform bağımsız bir antivirüs uygulaması
             Icon=%s
@@ -125,7 +125,15 @@ class SystemTray(QSystemTrayIcon):
             MimeType=
             Name[tr]=Virux
             Name=Virux
-            Path=%s"""%(os.path.join(mainPath, "data", "logo.png"),mainPath)
+            Path=
+            StartupNotify=true
+            Terminal=false
+            TerminalOptions=
+            Type=Application
+            X-DBUS-ServiceName=
+            X-DBUS-StartupType=
+            X-KDE-SubstituteUID=false
+            X-KDE-Username="""%(mainPath, os.path.join(mainPath, "data", "logo.png"))
             yaz = open(dosyaYolu, "w")
             yaz.write(desktop)
             yaz.close()
@@ -164,10 +172,9 @@ class HideWidget(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setQuitOnLastWindowClosed(False)
     app.setApplicationName("Virux")
     app.setApplicationVersion("0.2.6")
-    app.setOrganizationName("Virux")
-    app.setOrganizationDomain("MetehanUs")
     if sys.platform == "win32":
         setting = QSettings("Virux.conf", QSettings.IniFormat)
     else:
