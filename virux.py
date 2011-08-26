@@ -165,8 +165,13 @@ class HideWidget(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setApplicationName("Virux")
-    app.setApplicationVersion("0.2.5")
-    setting = QSettings("Virux", "Virux")
+    app.setApplicationVersion("0.2.6")
+    app.setOrganizationName("Virux")
+    app.setOrganizationDomain("MetehanUs")
+    if sys.platform == "win32":
+        setting = QSettings("Virux.conf", QSettings.IniFormat)
+    else:
+        setting = QSettings("Virux", "Virux")
     if not os.path.isfile(setting.fileName()):
         setting.setValue("ContextMenu/AcilistaBaslat", False)
         setting.setValue("ContextMenu/Koru", True)

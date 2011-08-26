@@ -6,3 +6,4 @@ Version 0.2.5
 * Açılışta çalıştır seçeneği eklendi.
 * Dialogların ESC tuşuyla kapanması önlendi(uygulama da kapanıyordu.).
 * Kapat seçeneği eklendi.
+* Windowsta yaşanana ayar kaydetme sorunu giderildi.
