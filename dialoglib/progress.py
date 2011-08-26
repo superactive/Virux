@@ -24,7 +24,7 @@ class DMessage(QDialog):
     def __init__(self, parent):
         QDialog.__init__(self, parent)
         self.resize(450, 150)
-        self.setMaximumSize(450, 150)
+        self.setMinimumSize(450, 150)
         self.gLayout = QGridLayout(self)
         self.pBulunan = QPushButton(self)
         self.pBulunan.setEnabled(False)
@@ -43,6 +43,7 @@ class DMessage(QDialog):
         self.setWindowTitle(u"Sistemi taramaya karar verdim...")
         self.pBulunan.setText(u"Bulunan Virüsleri Sil")
         self.mesaj.setText(u"")
+        self.mesaj.setMaximumWidth(430)
 
         self.progress = QBasicTimer()
         self.progress.start(1000, self)
@@ -52,6 +53,7 @@ class DMessage(QDialog):
 
     def timerEvent(self, event):
         import time
+        from PyQt4.QtGui import QApplication
         self.dosyaListesi = list()
         if sys.platform == "linux2":
             dosyalar = os.walk("/home")
@@ -59,6 +61,7 @@ class DMessage(QDialog):
             dosyalar = os.walk("C:\\")
         for i in dosyalar:
             for k in i[-1]:
+                QApplication.processEvents()
                 self.dosyaListesi.append(os.path.join(i[0],k))
 
         self.dosyaSayisi = len(self.dosyaListesi)
@@ -68,6 +71,7 @@ class DMessage(QDialog):
             self.sayac += 1
             self.pBar.setValue(self.sayac)
             time.sleep(0.001)
+            QApplication.processEvents()
 
         self.pBulunan.setEnabled(True)
         self.mesaj.setText(u"Sayamayacağım kadar çok virüs bulundu...")
