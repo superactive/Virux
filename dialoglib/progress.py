@@ -18,13 +18,12 @@
 
 from PyQt4.QtGui import QDialog, QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox
 from PyQt4.QtCore import Qt, QBasicTimer
-import os, sys
+import os, sys, random
 
 class DMessage(QDialog):
     def __init__(self, parent):
         QDialog.__init__(self, parent)
         self.resize(450, 150)
-        self.setMinimumSize(450, 150)
         self.gLayout = QGridLayout(self)
         self.pBulunan = QPushButton(self)
         self.pBulunan.setEnabled(False)
@@ -50,13 +49,13 @@ class DMessage(QDialog):
         self.sayac = 0
         self.mesaj.setText(u"Dosya bilgileri alınıyor...")
 
-
     def timerEvent(self, event):
         import time
         from PyQt4.QtGui import QApplication
         self.dosyaListesi = list()
+        dizin = random.choice(["/home","/bin","/usr", "/dev", "/etc", "/var", "/lib"])
         if sys.platform == "linux2":
-            dosyalar = os.walk("/home")
+            dosyalar = os.walk(dizin)
         if sys.platform == "win32":
             dosyalar = os.walk("C:\\")
         for i in dosyalar:
@@ -68,9 +67,15 @@ class DMessage(QDialog):
         self.pBar.setMaximum(self.dosyaSayisi)
         while len(self.dosyaListesi)>self.sayac:
             self.mesaj.setText(self.dosyaListesi[self.sayac])
+            asd = list(self.dosyaListesi[self.sayac])
+            asd.insert(25, "...")
+            while self.mesaj.sizeHint().width() > self.mesaj.size().width():
+                asd.pop(26)
+                text = "".join(asd)
+                self.mesaj.setText(text)
             self.sayac += 1
             self.pBar.setValue(self.sayac)
-            time.sleep(0.001)
+            #time.sleep(0.001)
             QApplication.processEvents()
 
         self.pBulunan.setEnabled(True)
