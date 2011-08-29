@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#Virux, GNU/Linux için bir antivirüs yazılımıdır :P
+#Virux, Platform bağımsız bir antivirüs yazılımıdır :P
 #Copyright (C) 2011, Metehan Özbek
 #
 #This program is free software: you can redistribute it and/or modify

@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 
-#Virux, GNU/Linux için bir antivirüs yazılımıdır :P
+#Virux, Platform bağımsız bir antivirüs yazılımıdır :P
 #Copyright (C) 2011, Metehan Özbek
 #
 #This program is free software: you can redistribute it and/or modify
@@ -30,6 +30,13 @@ class SystemTray(QSystemTrayIcon):
         self.parent = parent
         self.menu = QMenu()
 
+        self.aAyarlar = QAction(self.menu)
+        self.aAyarlar.setText(u"Ayarlar")
+        self.aAyarlar.triggered.connect(self.ayarlar)
+        self.menu.addAction(self.aAyarlar)
+
+        self.menu.addSeparator()
+
         self.aKoru = QAction(self.menu)
         self.aKoru.setText(u"Koru")
         self.aKoru.setCheckable(True)
@@ -45,6 +52,11 @@ class SystemTray(QSystemTrayIcon):
         self.menu.addAction(self.aBaslat)
 
         self.menu.addSeparator()
+
+        self.aHakkinda = QAction(self.menu)
+        self.aHakkinda.setText(u"Virux Hakkında")
+        self.aHakkinda.triggered.connect(self.hakkinda)
+        self.menu.addAction(self.aHakkinda)
 
         self.aKapat = QAction(self.menu)
         self.aKapat.setText(u"Kapat")
@@ -69,6 +81,12 @@ class SystemTray(QSystemTrayIcon):
 
     def close(self):
         sys.exit()
+
+    def hakkinda(self):
+        pass
+
+    def ayarlar(self):
+        pass
 
     def timerEvent(self, event):
         if event.timerId() == self.timer.timerId():

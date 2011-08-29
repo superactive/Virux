@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 
 #Virux, Platform bağımsız bir antivirüs yazılımıdır :P
 #Copyright (C) 2011, Metehan Özbek
@@ -16,27 +16,10 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import os
+from PyQt4.QtGui import QDialog, QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox
+from PyQt4.QtCore import Qt, QBasicTimer
+import os, sys, random
 
-dizin_listesi = os.listdir(os.path.abspath(os.path.dirname(__file__)))
-
-def dialogList(list):
-    for py in list:
-        if not py.startswith("__init__"):
-            if py[-3:] != "pyc" and py[-3:] == ".py":
-                yield py[:-3]
-
-kod = ""
-for i in dialogList(dizin_listesi):
-    kod += "import %s\n"%i
-
-kod += "\n\n"
-kod += "__all__ = ["
-
-for i in dialogList(dizin_listesi):
-    kod += "%s.DMessage, "%i
-
-kod += "]\n"
-
-exec(kod)
-
+class DAyarlar(QDialog):
+    def __init__(self, parent):
+        QDialog.__init__(self, parent)
