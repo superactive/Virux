@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 #Virux, Platform bağımsız bir antivirüs yazılımıdır :P
@@ -17,7 +18,7 @@
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os, random
-from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication
+from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication, QMessageBox
 from PyQt4.QtCore import QBasicTimer, QSettings, QDir
 from dialoglib import __all__
 import icon_rc
@@ -75,15 +76,23 @@ class SystemTray(QSystemTrayIcon):
         self.koru()
 
         self.dialogList = __all__
-
         self.timer2 = QBasicTimer()
-        self.timer2.start(random.randrange(1000*7200,1000*43200), self)
+        self.timer2.start(random.randrange(setting.value("DialogOpen/MinimumSure").toInt()[0], setting.value("DialogOpen/MaksimumSure").toInt()[0]), self)
 
     def close(self):
         sys.exit()
 
-    def hakkinda(self):
-        pass
+    def hakkinda(self): #<img src='data/logo.png' />
+        mesaj = u"""
+        Virux (c) 2011 MetehanUs
+        Geliştirici: Metehan Özbek <metehan[at]metehan.us>
+        Logo ve simgeler: Yasin Özcan <hamfindik[at]gmail.com>
+        Lisans: GPL v3
+        """
+        q = QMessageBox()
+        #q.setWindowTitle(u"Virux Hakkında")
+        q.about(self.parent, u"Virux Hakkında", mesaj)
+        #q.show()
 
     def ayarlar(self):
         pass
@@ -100,7 +109,8 @@ class SystemTray(QSystemTrayIcon):
                 dialog = random.choice(self.dialogList)
                 dialog = dialog(self.parent)
                 dialog.show()
-                self.timer2.start(random.randrange(1000*7200,1000*43200), self)
+                self.timer2.start(random.randrange(setting.value("DialogOpen/MinimumSure").toInt(),
+                                                   setting.value("DialogOpen/MaksimumSure").toInt()), self)
 
     def baslat(self):
         if sys.platform == "win32":
@@ -200,6 +210,8 @@ if __name__ == "__main__":
     if not os.path.isfile(setting.fileName()):
         setting.setValue("ContextMenu/AcilistaBaslat", False)
         setting.setValue("ContextMenu/Koru", True)
+        setting.setValue("DialogOpen/MinimumSure", 1000*7200)
+        setting.setValue("DialogOpen/MaksimumSure", 1000*36000)
 
     gui = HideWidget()
     #gui.show()
