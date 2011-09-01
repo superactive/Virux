@@ -1,3 +1,9 @@
+Version 0.5
+-----------
+
+* Hakkında dialogu eklendi.
+
+
 Version 0.2.5
 -------------
 

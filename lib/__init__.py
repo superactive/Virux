@@ -17,5 +17,6 @@
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from ayarlar import DAyarlar
+from hakkinda import DHakkinda
 
-__all__ = [DAyarlar]
+__all__ = [DAyarlar, DHakkinda]

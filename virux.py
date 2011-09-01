@@ -17,11 +17,11 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import sys, os, random
+import sys, os, random, icon_rc
 from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication, QMessageBox
 from PyQt4.QtCore import QBasicTimer, QSettings, QDir
 from dialoglib import __all__
-import icon_rc
+from lib import DHakkinda
 
 mainPath = os.path.abspath(os.path.dirname(__file__))
 
@@ -82,17 +82,9 @@ class SystemTray(QSystemTrayIcon):
     def close(self):
         sys.exit()
 
-    def hakkinda(self): #<img src='data/logo.png' />
-        mesaj = u"""
-        Virux (c) 2011 MetehanUs
-        Geliştirici: Metehan Özbek <metehan[at]metehan.us>
-        Logo ve simgeler: Yasin Özcan <hamfindik[at]gmail.com>
-        Lisans: GPL v3
-        """
-        q = QMessageBox()
-        #q.setWindowTitle(u"Virux Hakkında")
-        q.about(self.parent, u"Virux Hakkında", mesaj)
-        #q.show()
+    def hakkinda(self):
+        hakkinda = DHakkinda(self.parent)
+        hakkinda.show()
 
     def ayarlar(self):
         pass
@@ -156,12 +148,7 @@ class SystemTray(QSystemTrayIcon):
             Path=
             StartupNotify=true
             Terminal=false
-            TerminalOptions=
-            Type=Application
-            X-DBUS-ServiceName=
-            X-DBUS-StartupType=
-            X-KDE-SubstituteUID=false
-            X-KDE-Username="""%(mainPath, os.path.join(mainPath, "data", "logo.png"))
+            """%(mainPath, os.path.join(mainPath, "data", "logo.png"))
             yaz = open(dosyaYolu, "w")
             yaz.write(desktop)
             yaz.close()
@@ -202,7 +189,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     app.setApplicationName("Virux")
-    app.setApplicationVersion("0.2.6")
+    app.setApplicationVersion("0.5")
     if sys.platform == "win32":
         setting = QSettings("Virux.conf", QSettings.IniFormat)
     else:
