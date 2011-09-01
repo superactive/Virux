@@ -2,6 +2,8 @@ Version 0.5
 -----------
 
 * Hakkında dialogu eklendi.
+* progress.py de timer yerine thread kullanıldı.
+
 
 
 Version 0.2.5

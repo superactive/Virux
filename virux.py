@@ -18,7 +18,7 @@
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os, random, icon_rc
-from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication, QMessageBox
+from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication
 from PyQt4.QtCore import QBasicTimer, QSettings, QDir
 from dialoglib import __all__
 from lib import DHakkinda
@@ -142,7 +142,6 @@ class SystemTray(QSystemTrayIcon):
             GenericName=Platform bağımsız bir antivirüs uygulaması
             Icon=%s
             Type=Application
-            MimeType=
             Name[tr]=Virux
             Name=Virux
             Path=
@@ -166,7 +165,7 @@ class SystemTray(QSystemTrayIcon):
     def koru(self):
         if not self.aKoru.isChecked():
             self.timer.stop()
-            self.setIcon(QIcon(os.path.join("data","logo.png")))
+            self.setIcon(QIcon(":/logo/data/logo.png"))
             setting.setValue("ContextMenu/Koru", False)
         else:
             self.timer.start(200, self)

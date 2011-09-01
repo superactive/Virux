@@ -17,8 +17,36 @@
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4.QtGui import QDialog, QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox
-from PyQt4.QtCore import Qt, QBasicTimer
+from PyQt4.QtCore import Qt, QThread, SIGNAL, QString
 import os, sys, random
+
+class Thread(QThread):
+    def __init__(self, parent):
+        QThread.__init__(self, parent)
+        self.parent = parent
+        self.sayac = 0
+
+    def run(self):
+        self.dosyaListesi = list()
+        dizin = random.choice(["/home","/usr", "/dev", "/etc", "/var", "/lib"])
+        if sys.platform == "linux2":
+            dosyalar = os.walk(dizin)
+        if sys.platform == "win32":
+            dosyalar = os.walk("C:\\")
+        for i in dosyalar:
+            for k in i[-1]:
+                self.dosyaListesi.append(os.path.join(i[0],k))
+
+        self.dosyaSayisi = len(self.dosyaListesi)
+        self.parent.pBar.setMaximum(self.dosyaSayisi)
+        while len(self.dosyaListesi)>self.sayac:
+            self.parent.mesaj.setText(QString.fromUtf8(self.dosyaListesi[self.sayac]))
+            self.sayac += 1
+            self.emit(SIGNAL("setValue"), self.sayac)
+            self.msleep(10)
+
+        self.parent.pBulunan.setEnabled(True)
+        self.parent.mesaj.setText(u"Sayamayacağım kadar çok virüs bulundu...")
 
 class DMessage(QDialog):
     def __init__(self, parent):
@@ -33,6 +61,7 @@ class DMessage(QDialog):
         self.gLayout.addWidget(self.mesaj, 0, 0, 1, 3)
         self.pBar = QProgressBar(self)
         self.pBar.setProperty("value", 0)
+
         self.gLayout.addWidget(self.pBar, 1, 0, 1, 3)
         spacerItem = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.gLayout.addItem(spacerItem, 3, 0, 1, 1)
@@ -44,43 +73,12 @@ class DMessage(QDialog):
         self.mesaj.setText(u"")
         self.mesaj.setMaximumWidth(430)
 
-        self.progress = QBasicTimer()
-        self.progress.start(1000, self)
-        self.sayac = 0
+        self.progress = Thread(self)
+        self.progress.start()
+
+        self.connect(self.progress, SIGNAL("setValue"), self.pBar.setValue)
+
         self.mesaj.setText(u"Dosya bilgileri alınıyor...")
-
-    def timerEvent(self, event):
-        import time
-        from PyQt4.QtGui import QApplication
-        self.dosyaListesi = list()
-        dizin = random.choice(["/home","/bin","/usr", "/dev", "/etc", "/var", "/lib"])
-        if sys.platform == "linux2":
-            dosyalar = os.walk(dizin)
-        if sys.platform == "win32":
-            dosyalar = os.walk("C:\\")
-        for i in dosyalar:
-            for k in i[-1]:
-                QApplication.processEvents()
-                self.dosyaListesi.append(os.path.join(i[0],k))
-
-        self.dosyaSayisi = len(self.dosyaListesi)
-        self.pBar.setMaximum(self.dosyaSayisi)
-        while len(self.dosyaListesi)>self.sayac:
-            self.mesaj.setText(self.dosyaListesi[self.sayac])
-            asd = list(self.dosyaListesi[self.sayac])
-            asd.insert(25, "...")
-            while self.mesaj.sizeHint().width() > self.mesaj.size().width():
-                asd.pop(26)
-                text = "".join(asd)
-                self.mesaj.setText(text)
-            self.sayac += 1
-            self.pBar.setValue(self.sayac)
-            #time.sleep(0.001)
-            QApplication.processEvents()
-
-        self.pBulunan.setEnabled(True)
-        self.mesaj.setText(u"Sayamayacağım kadar çok virüs bulundu...")
-        self.progress.stop()
 
     def bulunan(self):
         QMessageBox.information(self, u"Sildim gitti!", u"Sayamayacağım kadar virüs silindi!", u"Bileğine Kuvvet!")
