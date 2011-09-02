@@ -85,7 +85,7 @@ class DHakkinda(QDialog):
         <p>Rasgele zamanlarda mevcut olan dialoglardan bir tanesi ekranda gözükecektir. Sadece eğlence amacıyla yapılmıştır...</p>
         <p><b>Geliştirici:</b> Metehan Özbek - <a href='mailto:metehan@metehan.us'>metehan@metehan.us</a></p>
         <p><b>Görsel Çalışma:</b> Yasin Özcan - <a href='mailto:hamfindik@gmail.com'>hamfindik@gmail.com</a></p>
-        <p><b>Katkı Yapanlar:</b> -</p>
+        <p><b>Katkı Yapanlar:</b> Yaşar Arabacı - <a href='mailto:yasar11732@gmail.com'>yasar11732@gmail.com</a></p>
         <p><b>Lisans:</b> GPL v3</p>
         <p></p>""")
 

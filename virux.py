@@ -21,7 +21,7 @@ import sys, os, random, icon_rc
 from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication
 from PyQt4.QtCore import QBasicTimer, QSettings, QDir
 from dialoglib import __all__
-from lib import DHakkinda
+from lib import DHakkinda, DAyarlar
 
 mainPath = os.path.abspath(os.path.dirname(__file__))
 
@@ -77,7 +77,8 @@ class SystemTray(QSystemTrayIcon):
 
         self.dialogList = __all__
         self.timer2 = QBasicTimer()
-        self.timer2.start(random.randrange(setting.value("DialogOpen/MinimumSure").toInt()[0], setting.value("DialogOpen/MaksimumSure").toInt()[0]), self)
+        self.timer2.start(random.randrange(setting.value("DialogOpen/MinimumSure").toInt()[0],
+                                           setting.value("DialogOpen/MaksimumSure").toInt()[0]), self)
 
     def close(self):
         sys.exit()
@@ -87,7 +88,8 @@ class SystemTray(QSystemTrayIcon):
         hakkinda.show()
 
     def ayarlar(self):
-        pass
+        ayarlar = DAyarlar(self.parent)
+        ayarlar.show()
 
     def timerEvent(self, event):
         if event.timerId() == self.timer.timerId():
@@ -155,7 +157,7 @@ class SystemTray(QSystemTrayIcon):
             
     def mesaj(self, reason):
         if reason == self.Trigger:
-            self.showMessage("Virux", u"Platform bağımsız bir antivirüs uygulaması :P", self.NoIcon, 10000)
+            self.showMessage("Virux", u"Eğlence amaçlı antivirüs uygulaması :P", self.NoIcon, 10000)
 
         if reason == self.MiddleClick:
             dialog = random.choice(self.dialogList)

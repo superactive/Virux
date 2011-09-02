@@ -16,12 +16,12 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtGui import QDialog, QGridLayout, QLabel, QMessageBox, QPushButton, QSpacerItem, QSizePolicy
-from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QGridLayout, QLabel, QMessageBox, QPushButton, QSpacerItem, QSizePolicy
+from basedialog import VDialog
 
-class DMessage(QDialog):
+class DMessage(VDialog):
     def __init__(self, parent):
-        QDialog.__init__(self, parent)
+        VDialog.__init__(self, parent)
         self.resize(450, 150)
         self.gLayout = QGridLayout(self)
         self.mesaj = QLabel(self)
@@ -52,6 +52,3 @@ class DMessage(QDialog):
         QMessageBox.information(self, u"Çare bulundu!", u"Her şeyin bir çaresi vardır demiştim!", u"Allah razı olsun!")
         self.close()
 
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Escape:
-            pass

@@ -16,8 +16,9 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtGui import QDialog, QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox
-from PyQt4.QtCore import Qt, QThread, SIGNAL, QString
+from PyQt4.QtGui import QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox
+from PyQt4.QtCore import QThread, SIGNAL, QString
+from basedialog import VDialog
 import os, sys, random
 
 class Thread(QThread):
@@ -43,14 +44,14 @@ class Thread(QThread):
             self.parent.mesaj.setText(QString.fromUtf8(self.dosyaListesi[self.sayac]))
             self.sayac += 1
             self.emit(SIGNAL("setValue"), self.sayac)
-            self.msleep(10)
+            self.msleep(1)
 
         self.parent.pBulunan.setEnabled(True)
         self.parent.mesaj.setText(u"Sayamayacağım kadar çok virüs bulundu...")
 
-class DMessage(QDialog):
+class DMessage(VDialog):
     def __init__(self, parent):
-        QDialog.__init__(self, parent)
+        VDialog.__init__(self, parent)
         self.resize(450, 150)
         self.gLayout = QGridLayout(self)
         self.pBulunan = QPushButton(self)
@@ -83,7 +84,3 @@ class DMessage(QDialog):
     def bulunan(self):
         QMessageBox.information(self, u"Sildim gitti!", u"Sayamayacağım kadar virüs silindi!", u"Bileğine Kuvvet!")
         self.close()
-
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Escape:
-            pass
