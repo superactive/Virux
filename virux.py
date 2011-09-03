@@ -19,7 +19,7 @@
 
 import sys, os, random, icon_rc
 from PyQt4.QtGui import QMenu, QSystemTrayIcon, QAction, QIcon, QWidget, QApplication
-from PyQt4.QtCore import QBasicTimer, QSettings, QDir
+from PyQt4.QtCore import QBasicTimer, QSettings, QDir, QSharedMemory
 from dialoglib import __all__
 from lib import DHakkinda, DAyarlar
 
@@ -191,6 +191,11 @@ if __name__ == "__main__":
     app.setQuitOnLastWindowClosed(False)
     app.setApplicationName("Virux")
     app.setApplicationVersion("0.5")
+
+    sharedMemory = QSharedMemory("f33a4b06-72f5-4b72-90f4-90d606cdf98c")
+    if sharedMemory.create(512, QSharedMemory.ReadWrite) == False:
+        sys.exit()
+        
     if sys.platform == "win32":
         setting = QSettings("Virux.conf", QSettings.IniFormat)
     else:
