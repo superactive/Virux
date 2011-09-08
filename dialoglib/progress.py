@@ -16,7 +16,7 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtGui import QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox
+from PyQt4.QtGui import QPushButton, QGridLayout, QLabel, QProgressBar, QSpacerItem, QSizePolicy, QMessageBox, QWidget, QSpinBox
 from PyQt4.QtCore import QThread, SIGNAL, QString
 from basedialog import VDialog
 import os, sys, random
@@ -48,6 +48,33 @@ class Thread(QThread):
 
         self.parent.pBulunan.setEnabled(True)
         self.parent.mesaj.setText(u"Sayamayacağım kadar çok virüs bulundu...")
+
+class Option(QWidget):
+   
+    def __init__(self):
+        QWidget.__init__(self)
+        self.resize(168, 86)
+        self.name = "Progress"
+        self.gridLayout = QGridLayout(self)
+        self.gridLayout.setMargin(0)
+        self.label_2 = QLabel(self)
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+        self.spinBox = QSpinBox(self)
+        self.spinBox.setMinimum(60)
+        self.spinBox.setMaximum(600)
+        self.gridLayout.addWidget(self.spinBox, 0, 2, 1, 1)
+        self.spinBox_2 = QSpinBox(self)
+        self.spinBox_2.setMinimum(120)
+        self.spinBox_2.setMaximum(600)
+        self.spinBox_2.setProperty("value", 600)
+        self.gridLayout.addWidget(self.spinBox_2, 1, 2, 1, 1)
+        self.label = QLabel(self)
+
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.label_2.setText(u"Max Süre(dk):")
+        self.label.setText(u"Min. Süre(dk):")
+
 
 class DMessage(VDialog):
     def __init__(self, parent):
@@ -84,3 +111,7 @@ class DMessage(VDialog):
     def bulunan(self):
         QMessageBox.information(self, u"Sildim gitti!", u"Sayamayacağım kadar virüs silindi!", u"Bileğine Kuvvet!")
         self.close()
+
+    @staticmethod
+    def getOption():
+        return Option()

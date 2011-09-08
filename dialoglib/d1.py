@@ -62,3 +62,6 @@ class DMessage(VDialog):
         QMessageBox.information(self, u"Bağırma!", u"Bağırma, adamı hasta etme!<br> Efendi ol canımı ye...", u"Özür dilerim!")
         self.close()
 
+    @staticmethod
+    def getOption():
+        print "amk"
